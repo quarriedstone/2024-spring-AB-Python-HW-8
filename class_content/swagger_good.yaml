@@ -1,0 +1,109 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Good REST API
+
+paths:
+  /users:
+    get:
+      summary: Get all users
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/UserModelId"
+
+    post:
+      summary: Create a new user
+      parameters:
+        - name: payload
+          required: true
+          in: body
+          schema:
+            $ref: "#/definitions/UserModel"
+      responses:
+        200:
+          description: User Created
+          schema:
+            $ref: "#/definitions/UserId"
+        422:
+          description: Not enough arguments
+
+  /users/{user_id}:
+    get:
+      summary: Get user by ID
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/UserModelId"
+        404:
+          description: No user found
+        422:
+          description: Not enough arguments
+    put:
+      summary: Update user by ID
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          type: string
+        - name: payload
+          required: true
+          in: body
+          schema:
+            $ref: "#/definitions/UserModel"
+      responses:
+        200:
+          description: User Updated
+        404:
+          description: No user found
+        422:
+          description: Not enough arguments
+    delete:
+      summary: Delete user by ID
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: User Deleted
+        404:
+          description: No user found
+        422:
+          description: Not enough arguments
+
+definitions:
+  UserModel:
+    type: object
+    properties:
+      name:
+        type: string
+        description: User's name
+      login:
+        type: string
+        description: User's login
+      password:
+        type: string
+        format: password
+        description: User's password
+  UserId:
+    type: object
+    properties:
+      user_id:
+        type: string
+        format: uuid
+        description: User's id
+  UserModelId:
+    allOf:
+      - $ref: "#/definitions/UserModel"
+      - $ref: "#/definitions/UserId"

@@ -1,0 +1,53 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Bad REST API
+
+paths:
+  /users:
+    get:
+      summary: Get all users
+      responses:
+        200:
+          description: Successful operation
+
+  /users/{id}:
+    post:
+      summary: Create a new user
+      responses:
+        201:
+          description: User Created
+    get:
+      summary: Get user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Successful operation
+
+  /users/{id}/update:
+    post:
+      summary: Update user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: User Updated
+
+  /users/{id}/delete:
+    post:
+      summary: Delete user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: User Deleted
