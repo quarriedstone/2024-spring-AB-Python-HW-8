@@ -1,7 +1,6 @@
-# Определение класса корневой мутации
 from typing import Optional, List
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from homework.app.container import APP_CONTAINER
 from homework.app.domain.entities.product import Product, ProductInput
@@ -32,13 +31,13 @@ def create_product(product_info: ProductInput) -> Product:
 
 
 @router.put('/{product_id}')
-def update_product_info(product_id: str, product_info: ProductInput) -> Optional[Product]:
+def update_product_info(product_id: str, product_info: ProductInput) -> Product:
     """Обновить данные о продукте."""
     product_adapter = APP_CONTAINER.product_adapter()
     try:
         product_adapter.update_name(product_id, product_info.name)
         product_adapter.update_price(product_id, product_info.price)
-    except ProductNotFound:
-        return None
+    except ProductNotFound as e:
+        raise HTTPException(status_code=404, detail=str(e))
     updated_product = product_adapter.get_product_by_id(product_id)
     return updated_product

@@ -1,4 +1,3 @@
-# Определение класса корневого запроса
 from typing import Optional
 
 from fastapi import APIRouter, HTTPException
@@ -15,13 +14,13 @@ router = APIRouter(
 
 
 @router.get('/{cart_id}')
-def get_cart_by_id(cart_id: str) -> Optional[Cart]:
+def get_cart_by_id(cart_id: str) -> Cart:
     """Логика для получения корзины товаров по id"""
     cart_adapter = APP_CONTAINER.cart_adapter()
     try:
         cart = cart_adapter.get_cart_by_id(cart_id)
-    except CartNotFound:
-        return None
+    except CartNotFound as e:
+        raise HTTPException(status_code=404, detail=str(e))
     return cart
 
 
