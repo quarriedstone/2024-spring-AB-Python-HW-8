@@ -1,12 +1,10 @@
 from typing import List, Optional
 
-import strawberry
-
+from pydantic import BaseModel
 from homework.app.domain.entities.product import ProductQuantity
 
 
 # Определение класса корзины
-@strawberry.type
-class Cart:
+class Cart(BaseModel):
     id: str
     products: List[Optional[ProductQuantity]]

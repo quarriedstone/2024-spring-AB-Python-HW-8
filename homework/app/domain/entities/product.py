@@ -1,20 +1,18 @@
 # Определение класса товара
 from typing import Optional
 
-import strawberry
+from pydantic import BaseModel
 
 
-@strawberry.type
-class Product:
+class Product(BaseModel):
     id: str
     name: str
     price: float = 0.
 
 
-@strawberry.input
-class ProductInput:
+class ProductInput(BaseModel):
     """
-    Хорошим тоном в GraphQL является
+    Хорошим тоном является
     использование таких Input классов.
     Отделяем сущность бизнес-логики Product от сущности,
     которую присылает пользователь.
@@ -23,7 +21,6 @@ class ProductInput:
     price: Optional[float] = None
 
 
-@strawberry.type
-class ProductQuantity:
+class ProductQuantity(BaseModel):
     product: Product
     quantity: int
