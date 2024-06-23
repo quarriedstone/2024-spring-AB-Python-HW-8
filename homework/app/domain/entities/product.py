@@ -1,11 +1,12 @@
 # Определение класса товара
 from typing import Optional
+from uuid import UUID
 
 from pydantic import BaseModel
 
 
 class Product(BaseModel):
-    id: str
+    id: UUID
     name: str
     price: float = 0.
 
