@@ -2,8 +2,9 @@ import strawberry
 from fastapi import FastAPI
 from strawberry.asgi import GraphQL
 
-from app.presentation.mutation import Mutation
-from app.presentation.query import Query
+from app.presentation.graphql.mutation import Mutation
+from app.presentation.graphql.query import Query
+from app.presentation.rest.handlers import router
 
 
 def _get_graphql_app() -> GraphQL:
@@ -21,5 +22,7 @@ def get_app() -> FastAPI:
     app = FastAPI()
     app.add_route("/graphql", graphql_app)
     app.add_websocket_route("/graphql", graphql_app)
+
+    app.include_router(router)
 
     return app

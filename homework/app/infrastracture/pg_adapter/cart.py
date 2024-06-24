@@ -74,4 +74,4 @@ class CartAdapter(CartInterface):
                 product_quantity.quantity = quantity
                 self.db_session.commit()
                 logger.info(f"Changed quantity of product {product_id} in cart {id_} to {quantity}")
-        return cart
+        return self.get(id_)
