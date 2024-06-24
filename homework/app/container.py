@@ -2,8 +2,8 @@ from dependency_injector.containers import DeclarativeContainer
 from dependency_injector.providers import Singleton
 from app.settings.app import AppSettings
 
-from app.infrastracture.adapter.cart import CartAdapter
-from app.infrastracture.adapter.product import ProductAdapter
+from app.infrastracture.pg_adapter.cart import CartAdapter
+from app.infrastracture.pg_adapter.product import ProductAdapter
 
 
 class AppContainer(DeclarativeContainer):
