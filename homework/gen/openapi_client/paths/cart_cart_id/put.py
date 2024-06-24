@@ -91,14 +91,14 @@ request_path_cart_id = api_client.PathParameter(
     schema=CartIdSchema,
     required=True,
 )
-SchemaFor200ResponseBodyTextPlain = schemas.AnyTypeSchema
+SchemaFor200ResponseBodyApplicationJson = schemas.AnyTypeSchema
 
 
 @dataclass
 class ApiResponseFor200(api_client.ApiResponse):
     response: urllib3.HTTPResponse
     body: typing.Union[
-        SchemaFor200ResponseBodyTextPlain,
+        SchemaFor200ResponseBodyApplicationJson,
     ]
     headers: schemas.Unset = schemas.unset
 
@@ -106,8 +106,8 @@ class ApiResponseFor200(api_client.ApiResponse):
 _response_for_200 = api_client.OpenApiResponse(
     response_cls=ApiResponseFor200,
     content={
-        'text/plain': api_client.MediaType(
-            schema=SchemaFor200ResponseBodyTextPlain),
+        'application/json': api_client.MediaType(
+            schema=SchemaFor200ResponseBodyApplicationJson),
     },
 )
 SchemaFor422ResponseBodyApplicationJson = HTTPValidationError
@@ -134,7 +134,6 @@ _status_code_to_response = {
     '422': _response_for_422,
 }
 _all_accept_content_types = (
-    'text/plain',
     'application/json',
 )
 

@@ -1,7 +1,7 @@
 from typing import Optional
 
 from fastapi import APIRouter, HTTPException
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import JSONResponse
 
 from homework.app.container import APP_CONTAINER
 from homework.app.domain.entities.cart import Cart
@@ -31,8 +31,8 @@ def create_cart() -> Cart:
     return cart_adapter.create()
 
 
-@router.put('/{cart_id}', response_class=PlainTextResponse)
-def add_to_cart(cart_id: str,  product_name: str, quantity: int) -> str:
+@router.put('/{cart_id}')
+def add_to_cart(cart_id: str,  product_name: str, quantity: int) -> JSONResponse:
     """Метод добавления товара в корзину"""
     product_adapter = APP_CONTAINER.product_adapter()
     cart_adapter = APP_CONTAINER.cart_adapter()
@@ -47,4 +47,6 @@ def add_to_cart(cart_id: str,  product_name: str, quantity: int) -> str:
         cart_adapter.change_product_quantity(cart_id, product_id, quantity)
     except (CartNotFound, ProductNotFound) as e:
         raise HTTPException(status_code=404, detail=str(e))
-    return f'Product {product_name} added to cart {cart_id}'
+
+    message = f'Product {product_name} added to cart {cart_id}'
+    return JSONResponse(content={'message': message})

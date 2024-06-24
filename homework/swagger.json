@@ -87,10 +87,8 @@
           "200": {
             "description": "Successful Response",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
+              "application/json": {
+                "schema": {}
               }
             }
           },

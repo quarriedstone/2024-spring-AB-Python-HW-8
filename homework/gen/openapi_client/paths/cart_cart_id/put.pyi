@@ -32,10 +32,9 @@ ProductNameSchema = schemas.AnyTypeSchema
 QuantitySchema = schemas.AnyTypeSchema
 # path params
 CartIdSchema = schemas.AnyTypeSchema
-SchemaFor200ResponseBodyTextPlain = schemas.AnyTypeSchema
+SchemaFor200ResponseBodyApplicationJson = schemas.AnyTypeSchema
 SchemaFor422ResponseBodyApplicationJson = HTTPValidationError
 _all_accept_content_types = (
-    'text/plain',
     'application/json',
 )
 
